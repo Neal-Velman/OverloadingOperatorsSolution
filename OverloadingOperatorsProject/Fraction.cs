@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace OverloadingOperators
@@ -23,12 +24,18 @@ namespace OverloadingOperators
                 }
             }
         } = 1;
-        public Fraction(int wholeNumber, int numerator, int denominator)
+        public Fraction(int whole = 0, int numerator = 0, int denominator = 1)
         {
-            WholeNumber = wholeNumber;
+            WholeNumber = whole;
             Numerator = numerator;
             Denominator = denominator;
         }
+
+        #region Static Functions
+
+
+
+        #endregion
 
         public void Reduce()
         {
@@ -103,6 +110,18 @@ namespace OverloadingOperators
             return tempFraction;
         }
 
+        public static bool operator ==(Fraction first, Fraction second)
+        {
+            first.Simplify();
+            second.Simplify();
+            return (first.WholeNumber == second.WholeNumber) && (first.Numerator == second.Numerator) && (first.Denominator == second.Denominator);
+        }
+
+        public static bool operator !=(Fraction first, Fraction second)
+        {
+            return first != second;
+        }
+
         public void MakeProper()
         {
             while (Numerator >= Denominator)
@@ -148,6 +167,11 @@ namespace OverloadingOperators
             {
                 return $"{WholeNumber} {Numerator}/{Denominator}";
             }
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

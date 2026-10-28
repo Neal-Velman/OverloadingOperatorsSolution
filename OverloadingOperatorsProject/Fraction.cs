@@ -119,7 +119,7 @@ namespace OverloadingOperators
 
         public static bool operator !=(Fraction first, Fraction second)
         {
-            return first != second;
+            return !(first == second);
         }
 
         public void MakeProper()
